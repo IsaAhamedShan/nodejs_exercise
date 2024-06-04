@@ -4,9 +4,12 @@ const user = express();
 const admin = express(); //defining another express object for admin
 app.use("/admin", admin); //here we are saying if anyone req by /admin then we will send the req to admin route
 //we can set local variables for server;
+
+//we can get any of these express object's path using app.path()/ user.path etc
 app.use("/user", user);
 const port = 5000;
 app.use(express.json());
+app.set("view engine","ejs")
 app.locals.name = "isa";
 //using user express object
 user.get("/details", async (req, res) => {
@@ -44,6 +47,21 @@ app.get("/learningParams/:id", (req, res) => {
         id: req.id
     })
 });
+//here we can use route method to use get post any method where the address is same. 
+//now i have install ejs using npm i ejs.we can use ejs to return a html page. ejs is easier than pug.
+//we have to return that html using res.render. 
+app.route('/events')
+  
+  .get((req, res) => {
+    res.render("index")
+  })
+  .post((req, res) => {
+    res.send({message:"inside post /events"})
+  })
+
+
+
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -11,6 +11,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mongodb": "^6.7.0",
     "nodemon": "^3.1.3"
