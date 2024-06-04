@@ -49,7 +49,8 @@ app.get("/learningParams/:id", (req, res) => {
 });
 //here we can use route method to use get post any method where the address is same. 
 //now i have install ejs using npm i ejs.we can use ejs to return a html page. ejs is easier than pug.
-//we have to return that html using res.render. 
+//we have to return that html using res.render. here i put the file name inside the render(filename) method. it will
+//check views folder by default
 app.route('/events')
   
   .get((req, res) => {
