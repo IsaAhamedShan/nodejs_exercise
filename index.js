@@ -1,7 +1,12 @@
 const express = require("express");
 const app = express();
-const user = express();
-const admin = express(); //defining another express object for admin
+const user = express.Router();
+const admin = express.Router(); //defining another router object for admin.
+//we can define const admin = express() which is a express object but defining
+// router object is better choice because its ligther than a new express object,
+// we can maintain middle ware better here; 
+//user express() for cases where i need completely isolated application instances or 
+//microservices within the same codebase.
 app.use("/admin", admin); //here we are saying if anyone req by /admin then we will send the req to admin route
 //we can set local variables for server;
 
@@ -9,7 +14,7 @@ app.use("/admin", admin); //here we are saying if anyone req by /admin then we w
 app.use("/user", user);
 const port = 5000;
 app.use(express.json());
-app.set("view engine","ejs")
+app.set("view engine", "ejs");
 app.locals.name = "isa";
 //using user express object
 user.get("/details", async (req, res) => {
@@ -43,27 +48,23 @@ app.param("id", (req, res, next, id) => {
   next();
 });
 app.get("/learningParams/:id", (req, res) => {
-    res.send({
-        id: req.id
-    })
+  res.send({
+    id: req.id,
+  });
 });
-//here we can use route method to use get post any method where the address is same. 
+//here we can use route method to use get post any method where the address is same.
 //now i have install ejs using npm i ejs.we can use ejs to return a html page. ejs is easier than pug.
 //we have to return that html using res.render. here i put the file name inside the render(filename) method. it will
 //check views folder by default
-app.route('/events')
-  
+app
+  .route("/events")
+
   .get((req, res) => {
-    res.render("index")
+    res.render("index");
   })
   .post((req, res) => {
-    res.send({message:"inside post /events"})
-  })
-
-
-
-
-
+    res.send({ message: "inside post /events" });
+  });
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -75,6 +76,10 @@ app.post("/simplePost", (req, res) => {
     name: app.locals.name,
   });
 });
+
+//REQ SECTION OF EXPRESS JS DOCS
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
