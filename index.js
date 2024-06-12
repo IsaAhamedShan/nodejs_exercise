@@ -1,4 +1,5 @@
 const express = require("express");
+const adminRoute = require("./AdminRoute")
 const app = express();
 const user = express.Router();
 const admin = express.Router(); //defining another router object for admin.
@@ -12,6 +13,7 @@ app.use("/admin", admin); //here we are saying if anyone req by /admin then we w
 
 //we can get any of these express object's path using app.path()/ user.path etc
 app.use("/user", user);
+app.use("/adminRoute",adminRoute)
 const port = 5000;
 app.use(express.json());
 app.set("view engine", "ejs");
@@ -84,3 +86,6 @@ app.post("/simplePost", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+//router section
+//for router example we made AdminRoute and imported here.
